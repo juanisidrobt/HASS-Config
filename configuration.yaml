@@ -87,9 +87,20 @@ notify:
     platform: telegram
     api_key: !secret telegram_api_key
     chat_id: !secret telegram_chat_id
-
+    
 sensor:
-  - platform: yr
+  - platform: yweather
+    woeid: !secret woeid_yweather
+    monitored_conditions:
+      - weather
+      - weather_current
+      - temp_min
+      - temp_max
+      - wind_speed
+      - pressure
+      - visibility
+      - humidity
+      - temperature
   - platform: fastdotcom
   - platform: systemmonitor
     resources:

@@ -1,13 +1,14 @@
-#Groups.yaml
+#groups.yaml
     default_view:
       view: yes
       entities:
         - group.familia
         - group.sys_information
+        - group.all_automations
+        - group.weather
 
     familia:
       name: Familia Brito
-      view: no
       entities:
         - device_tracker.a08d16f387fb
         - device_tracker.android512a91bcca7519ffcpetricomnet
@@ -15,9 +16,17 @@
 
     sys_information:
       name: System Information
-      view: no
       entities:
         - sensor.disk_use_home
         - sensor.fastcom_download
         - sensor.ram_free
         - sensor.since_last_boot
+
+
+    weather:
+      name: Weather in Santo Domingo
+      entities:
+        - sensor.yweather_condition
+        - sensor.yweather_temperature
+        - sensor.yweather_wind_speed
+        - sensor.yweather_visibility
