@@ -4,5 +4,6 @@
 *.crt
 *.key
 secrets.yaml
+configurator.py
 known_devices.yaml
 !/.gitignore

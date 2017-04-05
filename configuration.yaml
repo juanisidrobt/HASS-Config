@@ -97,6 +97,12 @@ sensor:
         arg: /home
       - type: memory_free
       - type: since_last_boot
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://192.168.11.120:3218
       
 automation:
   - alias: Welcome home message
