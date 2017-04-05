@@ -1,0 +1,8 @@
+../fastdotcom/__init__.py
+../fastdotcom/__pycache__/__init__.cpython-34.pyc
+requires.txt
+zip-safe
+SOURCES.txt
+top_level.txt
+PKG-INFO
+dependency_links.txt

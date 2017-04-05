@@ -1,0 +1,8 @@
+../pydroid_ipcam.py
+../__pycache__/pydroid_ipcam.cpython-34.pyc
+requires.txt
+SOURCES.txt
+top_level.txt
+not-zip-safe
+PKG-INFO
+dependency_links.txt

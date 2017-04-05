@@ -1,0 +1,125 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Brito's Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_DR
+  longitude: !secret longitude_DR
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 20
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Santo_Domingo
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+   api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+
+android_ip_webcam:
+  # This should be the IP Address of the phone
+  - host: 192.168.11.129
+    name: N6P
+camera:
+  - platform: mjpeg
+    mjpeg_url: http://192.168.11.117/jview.htm
+    still_image_url: http://192.168.11.117/image/jpeg.cgi
+    name: D-Link Network Camera
+    username: !secret d_link_username
+    password: !secret d_link_password
+    authentication: basic
+    
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.11.1/24
+    interval_seconds: 10
+    consider_home: 720
+    track_new_devices: no
+
+media_player:
+  - platform: itunes
+    host: 192.168.11.103
+    name: Juans_MBP
+
+rest_command:
+  sabado_playlist:
+      url: 'http://192.168.11.103:8181/playlists/sabado/play'
+      method: PUT
+
+notify:
+  - name: ANDROTEK_BOT
+    platform: telegram
+    api_key: !secret telegram_api_key
+    chat_id: !secret telegram_chat_id
+
+sensor:
+  - platform: yr
+  - platform: fastdotcom
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: since_last_boot
+      
+automation:
+  - alias: Welcome home message
+    trigger:
+        platform: state
+        entity_id: device_tracker.a08d16f387fb
+        state: 'home'
+    action:
+        service: notify.ANDROTEK_BOT
+        data:
+          message: "Bienvenido a casa Juan Isidro!"
+  - alias: 'Puesta del sol Viernes'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: '-00:03:00'
+    condition:
+      condition: time
+      weekday:
+        - fri
+    action:
+        - service: notify.ANDROTEK_BOT
+          data:
+            message: '¡El sol se pone, llega el Sabado del Señor!'
+        - service: rest_command.sabado_playlist
+

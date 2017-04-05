@@ -1,0 +1,9 @@
+*.pid
+*.xml
+*.csr
+*.crt
+*.key
+secrets.yaml
+known_devices.yaml
+.*
+!/.gitignore
