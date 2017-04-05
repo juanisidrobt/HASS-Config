@@ -1,0 +1,23 @@
+#Groups.yaml
+    default_view:
+      view: yes
+      entities:
+        - group.familia
+        - group.sys_information
+
+    familia:
+      name: Familia Brito
+      view: no
+      entities:
+        - device_tracker.a08d16f387fb
+        - device_tracker.android512a91bcca7519ffcpetricomnet
+        - device_tracker.androida38e2ef579cc1024
+
+    sys_information:
+      name: System Information
+      view: no
+      entities:
+        - sensor.disk_use_home
+        - sensor.fastcom_download
+        - sensor.ram_free
+        - sensor.since_last_boot
